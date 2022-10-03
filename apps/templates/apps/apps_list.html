@@ -1,0 +1,632 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+
+<script>
+  var cont = 0;
+  function loopSlider() {
+    var xx = setInterval(function () {
+      switch (cont) {
+        case 0: {
+          $("#slider-1").fadeOut(400);
+          $("#slider-2").delay(400).fadeIn(400);
+          $("#sButton1").removeClass("bg-purple-800");
+          $("#sButton2").addClass("bg-purple-800");
+          cont = 6;
+
+          break;
+        }
+        case 2:
+          {
+
+            $("#slider-2").fadeOut(400);
+            $("#slider-1").delay(400).fadeIn(400);
+            $("#sButton2").removeClass("bg-purple-800");
+            $("#sButton1").addClass("bg-purple-800");
+
+            cont = 0;
+
+            break;
+          }
+
+
+      }
+    }, 8000);
+
+  }
+
+  function reinitLoop(time) {
+    clearInterval(xx);
+    setTimeout(loopSlider(), time);
+  }
+
+
+
+  function sliderButton1() {
+
+    $("#slider-2").fadeOut(400);
+    $("#slider-1").delay(400).fadeIn(400);
+    $("#sButton2").removeClass("bg-purple-800");
+    $("#sButton1").addClass("bg-purple-800");
+    reinitLoop(4000);
+    cont = 0
+
+  }
+
+  function sliderButton2() {
+    $("#slider-1").fadeOut(600);
+    $("#slider-2").delay(600).fadeIn(400);
+    $("#sButton1").removeClass("bg-purple-800");
+    $("#sButton2").addClass("bg-purple-800");
+    reinitLoop(4000);
+    cont = 0
+
+  }
+
+  $(window).ready(function () {
+    $("#slider-2").hide();
+    $("#sButton1").addClass("bg-purple-800");
+
+
+    loopSlider();
+
+
+
+
+
+
+  });
+
+
+</script>
+
+<div class="sliderAx h-auto lg:px-0">
+  <div id="slider-1" class="container sm-auto md:inline min-h-screen">
+    <div class="bg-cover bg-left  h-auto text-white   min-h-screen"
+      style="background-image: url(https://securitytokenizer.s3.us-east-2.amazonaws.com/facebook-turns-meta.png)">
+      <div class="absolute bottom-0 left-0 md:p-10 p-6">
+        <h2 class="text-3xl font-bold capitalize text-blue mb-3">Amazon Shoppers Are Ditching Designer Belts for
+          This Best-Selling</h2>
+        </div>
+    </div> <!-- container -->
+
+  </div>
+
+  <div id="slider-2" class="container mx-auto md:inline">
+    <div class="bg-cover bg-top  h-auto text-white py-4 px-5 object-fill min-h-screen"
+      style="background-image: url(https://images.frandroid.com/wp-content/uploads/2021/08/xiaomi-cyberdog-1200x675.jpg)">
+
+      <div class="absolute bottom-0 left-0 md:p-10 p-6">
+        <h2 class="text-3xl font-bold capitalize text-white mb-3">Amazon Shoppers Are Ditching Designer Belts for
+          This Best-Selling</h2>
+        </div>
+    </div> <!-- container -->
+    <br>
+  </div>
+</div>
+<div class="flex justify-between w-10 mx-auto pb-4 px-0 py-2">
+  <button id="sButton1" onclick="sliderButton1()" class="bg-purple-400 rounded-full w-4 pb-2 "></button>
+  <button id="sButton2" onclick="sliderButton2() " class="bg-purple-400 rounded-full w-4 p-2"></button>
+</div>
+
+<script>
+  function activeTab(element) {
+    let siblings = element.parentNode.querySelectorAll("button");
+    for (let item of siblings) {
+      item.children[1].classList.add("hidden");
+      item.classList.add("text-gray-600");
+      item.classList.remove("text-indigo-700");
+
+
+
+    }
+    element.children[1].classList.remove("hidden");
+    element.classList.remove("text-gray-600");
+    element.classList.add("text-indigo-700");
+
+  }
+</script>
+
+<div class="sm:hidden relative w-11/12 mx-auto bg-black dark:bg-black rounded">
+  <div class="absolute inset-0 m-auto mr-4 z-0 w-6 h-6">
+    <img class="icon icon-tabler icon-tabler-selector"
+      src="https://tuk-cdn.s3.amazonaws.com/can-uploader/tabs-with-icons-svg1.svg" alt="selectors" />
+  </div>
+  <select aria-label="Selected tab"
+    class="dark:text-white form-select block w-full p-3 border border-gray-300 rounded text-gray-600 appearance-none bg-transparent relative z-10">
+    <option class="text-sm text-gray-600">inactive</option>
+    <option class="text-sm text-gray-600">inactive</option>
+    <option selected class="text-sm text-gray-600">active</option>
+    <option class="text-sm text-gray-600">inactive</option>
+    <option class="text-sm text-gray-600">inactive</option>
+  </select>
+</div>
+
+<div class="xl:w-full xl:mx-0 h-12 hidden sm:block bg-black dark:bg-gray-800 lg:px-1  shadow rounded">
+
+  <div class="flex border-b px-5">
+    <a class=" text-6x2 focus:outline-none focus:text-indigo-700 dark:focus:text-indigo-400 text-sm border-indigo-700 pt-3 rounded-t text-indigo-700 dark:text-indigo-400 mr-12 cursor-pointer" href="{% url 'apps_list' %}"> All
+  
+     
+      <span class="ml-1 font-normal">{{ category.name }}</span>
+    </a>
+
+
+       
+
+       
+
+
+
+
+     
+    {% for category in categories %}
+    <button onclick="activeTab(this)"
+      class="focus:outline-none focus:text-indigo-700 dark:focus:text-indigo-400 text-sm border-indigo-700 pt-3 rounded-t text-indigo-700 dark:text-indigo-400 mr-12 cursor-pointer">
+
+      <div class="flex items-center mb-3">
+
+        <img class="icon icon-tabler icon-tabler-home"
+          src="https://tuk-cdn.s3.amazonaws.com/can-uploader/tabs-with-icons-svg2.svg" alt="eye" />
+
+        <a href="{% url 'apps_list' %}?category={{ category.name }}">
+
+          <span class="ml-1 font-normal">{{ category.name }}</span>
+        </a>
+       
+
+
+      </div>
+
+      <div class="w-full h-1 bg-indigo-700 rounded-t-md"></div>
+
+    </button>
+
+    {% endfor %}
+
+
+  </div>
+</div>
+<br>
+
+<div class="flex lg:px-0">
+  {% for project in projects %}
+  <a href="{% url 'apps_detail' project.pk %}"
+    class="block p-2 max-w-sm bg-black rounded-lg border border-gray-200 shadow-sm hover:bg-gradient-to-r from-purple-500 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    <img class="max-w-full w-full mx-auto h-auto" src="{{project.image.url}}" alt="">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">{{ project.title }}</h5>
+    <p class="font-normal text-blue-200 dark:text-gray-200">{{ project.title_description }}</p>
+  </a>
+  {% endfor %}
+  {% for first in firsts %}
+  <a href="{% url 'firstapps_detail' first.pk %}"
+    class="block p-2  max-w-sm bg-black rounded-lg border border-gray-200 shadow-md hover:bg-gradient-to-r from-purple-500 dark:bg-gray-800 dark:border-pink-200 dark:hover:bg-blue-200 ">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">{{first.title}}</h5>
+    <p class="font-normal text-blue-200 dark:text-gray-400">{{ first.title_description }}</p>
+    <img class="max-w-full w-full mx-auto h-auto" src="{{first.image.url}}" alt="">
+  </a>
+  {% endfor %}
+  {% for second in seconds %}
+  <a href="{% url 'apps_detail' second.pk %}"
+    class="block p-2 max-w-sm bg-black rounded-lg border border-black shadow-md hover:bg-gradient-to-r from-purple-500 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"><img
+      class="max-w-full w-full mx-auto h-auto" src="{{second.image.url}}" alt="Image description">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">{{second.title}}</h5>
+    <p class="font-normal text-blue-300 dark:text-gray-400">{{ second.title_description }}</p>
+  </a>
+  {% endfor %}
+  {% for third in thirds %}
+  <a href="{% url 'apps_detail' third.pk %}"
+    class="block p-2 max-w-sm bg-black rounded-lg border border-black-200 shadow-md hover:bg-gradient-to-r from-purple-500 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-white dark:text-white">{{third.title}}</h5>
+    <p class="font-normal text-blue-200 dark:text-gray-400">{{ third.title_description }}</p>
+    <img class="max-w-full w-full mx-auto h-auto" src="{{third.image.url}}" alt="Image description">
+  </a>
+  {% endfor %}
+</div>
+
+
+<!-- component -->
+<!-- component -->
+
+
+<section class="max-w-2xl mx-auto px-0 sm:px-0 lg:px-1  lg:py-0 mb-1 md:inline ">
+
+ <article>
+   
+    <section class="mt-6 grid grid-cols-0 md:grid-cols-0 lg:grid-cols-3 gap-x-1 gap-y-0">
+      {% for fourth in fourths %}
+      <article
+        class="relative w-full h-64 bg-cover bg-center group rounded-lg overflow-hidden shadow-lg hover:shadow-2xl  transition duration-300 ease-in-out"
+        style="background-image: url('{{fourth.image.url}}');">
+        <div class="absolute inset-0 bg-black bg-opacity-50 group-hover:opacity-75 transition duration-300 ease-in-out">
+        </div>
+        <div class="relative w-full h-full px-4 sm:px-6 lg:px-4 flex justify-center items-center">
+          <h3 class="text-center">
+            <a class="text-white text-2xl font-bold text-center" href="{% url 'fourthapps_detail' fourth.pk %}">
+              <span class="absolute inset-0"></span>
+            {{fourth.title}}
+            </a>
+          </h3>
+        </div>
+      </article>
+      {% endfor %}
+
+  </article>
+
+
+</section>
+
+<!-- component -->
+<style>
+  .bg-gradient-cover {
+    background-color: transparent;
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.92));
+    background-position-y: -1px;
+  }
+
+  .max-h-98 {
+    max-height: 24.3rem;
+  }
+
+  .box-one>article:nth-child(1) {
+    padding-top: 0;
+    padding-bottom: 0.125rem;
+    padding-right: 0.125rem;
+  }
+
+  .box-one>article:nth-child(2) {
+    padding-top: 0;
+    padding-bottom: 0.125rem;
+    padding-left: 0.125rem;
+  }
+
+  .box-one>article:nth-child(3) {
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    padding-right: 0.125rem;
+  }
+
+  .box-one>article:nth-child(4) {
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    padding-left: 0.125rem;
+  }
+
+</style>
+<!-- component -->
+<style>
+  .bg-gradient-cover {
+    background-color: transparent;
+    background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.92));
+    background-position-y: -1px;
+  }
+
+  .max-h-98 {
+    max-height: 24.3rem;
+  }
+
+  .box-one>article:nth-child(1) {
+    padding-top: 0;
+    padding-bottom: 0.125rem;
+    padding-right: 0.125rem;
+  }
+
+  .box-one>article:nth-child(2) {
+    padding-top: 0;
+    padding-bottom: 0.125rem;
+    padding-left: 0.125rem;
+  }
+
+  .box-one>article:nth-child(3) {
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    padding-right: 0.125rem;
+  }
+
+  .box-one>article:nth-child(4) {
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    padding-left: 0.125rem;
+  }
+
+</style>
+<div class="bg-white py-0 md:inline lg:px-0 ">
+  <div class="xl:container mx-auto px-0 sm:px-0 xl:px-0 md:inline lg:px-0">
+    <!-- big grid 1 -->
+    <div class="flex flex-row flex-wrap lg:px-0 ">
+      <!--Start left cover-->
+      <div class="flex-shrink max-w-full w-full lg:w-1/2 pb-0 lg:pb-0 lg:pr-1">
+        <div class="relative hover-img max-h-98 overflow-hidden">
+          <a href="#">
+            <img class="max-w-full w-full mx-auto h-auto"
+              src="https://cdn.vox-cdn.com/thumbor/XdmxbV1mvh-xscuEVp8Vx9ICPAA=/637x0:4634x2998/1310x983/cdn.vox-cdn.com/uploads/chorus_image/image/64979073/1149595585.jpg.0.jpg"
+              alt="Image description">
+          </a>
+          <div class="absolute px-5 pt-8 pb-5 bottom-0 w-full bg-gradient-cover">
+            <a href="#">
+              <h2 class="text-3xl font-bold capitalize text-white mb-3">Amazon Shoppers Are Ditching Designer Belts for
+                This Best-Selling</h2>
+            </a>
+            <p class="text-gray-100 hidden sm:inline-block">This is a wider card with supporting text below as a natural
+              lead-in to additional content. This very helpfull for generate default content..</p>
+            <div class="pt-2">
+              <div class="text-gray-100">
+                <div class="inline-block h-3 border-l-2 border-red-600 mr-2"></div>Europe
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Start box news-->
+      <div class="flex-shrink max-w-full w-full lg:w-1/2">
+        <div class="box-one flex flex-row flex-wrap">
+          <article class="flex-shrink max-w-full w-full sm:w-1/2">
+            <div class="relative hover-img max-h-48 overflow-hidden">
+              <a href="#">
+                <img class="max-w-full w-full mx-auto h-auto"
+                  src="https://i.pinimg.com/originals/77/a4/78/77a47827c412375bcdfd1d47d10bdbff.jpg"
+                  alt="Image description">
+              </a>
+              <div class="absolute px-4 pt-7 pb-4 bottom-0 w-full bg-gradient-cover">
+                <a href="#">
+                  <h2 class="text-lg font-bold capitalize leading-tight text-white mb-1">News magazines are becoming
+                    obsolete, replaced by gadgets</h2>
+                </a>
+                <div class="pt-1">
+                  <div class="text-gray-100">
+                    <div class="inline-block h-3 border-l-2 border-red-600 mr-2"></div>Techno
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="flex-shrink max-w-full w-full sm:w-1/2">
+            <div class="relative hover-img max-h-48 overflow-hidden">
+              <a href="#">
+                <img class="max-w-full w-full mx-auto h-auto" src="https://wallpapercave.com/wp/wp4370096.jpg"
+                  alt="Image description">
+              </a>
+              <div class="absolute px-4 pt-7 pb-4 bottom-0 w-full bg-gradient-cover">
+                <a href="#">
+                  <h2 class="text-lg font-bold capitalize leading-tight text-white mb-1">Minimalist designs are starting
+                    to be popular with the next generation</h2>
+                </a>
+                <div class="pt-1">
+                  <div class="text-gray-100">
+                    <div class="inline-block h-3 border-l-2 border-red-600 mr-2"></div>Architecture
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="flex-shrink max-w-full w-full sm:w-1/2">
+            <div class="relative hover-img max-h-48 overflow-hidden">
+              <a href="#">
+                <img class="max-w-full w-full mx-auto h-auto"
+                  src="https://library.sportingnews.com/2021-08/zaha-haddid-al-janoub-stadium-qatar-world-cup-2022_ajhubds9sub01eg2qvfdxax4b.jpg"
+                  alt="Image description">
+              </a>
+              <div class="absolute px-4 pt-7 pb-4 bottom-0 w-full bg-gradient-cover">
+                <a href="#">
+                  <h2 class="text-lg font-bold capitalize leading-tight text-white mb-1">Tips for decorating the
+                    interior of the living room</h2>
+                </a>
+                <div class="pt-1">
+                  <div class="text-gray-100">
+                    <div class="inline-block h-3 border-l-2 border-red-600 mr-2"></div>Interior
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="flex-shrink max-w-full w-full sm:w-1/2">
+            <div class="relative hover-img max-h-48 overflow-hidden">
+              <a href="#">
+                <img class="max-w-full w-full mx-auto h-auto"
+                  src="https://cementegypt.com/public/entries_images/db4d6029c0e9772c9766337dbbc8feb4.jpg"
+                  alt="Image description">
+              </a>
+              <div class="absolute px-4 pt-7 pb-4 bottom-0 w-full bg-gradient-cover">
+                <a href="#">
+                  <h2 class="text-lg font-bold capitalize leading-tight text-white mb-1">Online taxi users are
+                    increasing drastically ahead of the new year</h2>
+                </a>
+                <div class="pt-1">
+                  <div class="text-gray-100">
+                    <div class="inline-block h-3 border-l-2 border-red-600 mr-2"></div>Lifestyle
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="justify-center  md:inline ">
+  <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
+  <div
+    class="2xl:md-auto 3xl:container lg:grid lg:gap-1 2xl:gap-0  lg:py-5 md:py-0 md:px-0 py-0 px-0 w-96 sm:w-auto  md:inline">
+
+    <div class="lg:flex items-stretch lg:gap-0 2xl:gap-0 md:mt-0 mt-0">
+      <div class="lg:w-1/2">
+        <div class="sm:flex items-center justify-between xl:gap-x-1 gap-x-1">
+          <div class="sm:w-1/2  relative">
+            <div>
+              <p class="p-10 text-xs font-medium leading-4 text-white absolute top-0 right-0">12 April 2021</p>
+              <div class="absolute bottom-0 left-0 p-10">
+                <h2 class="text-2xl font-bold capitalize text-white mb-3">Amazon Shoppers Are Ditching Designer Belts for
+                  This Best-Selling</h2>ю
+                <p class="text-base leading-4 text-white mt-2">Dive into minimalism</p>
+                <a href="javascript:void(0)"
+                  class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer text-white hover:text-gray-200 hover:underline">
+                  <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Choose plan
+                    <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </button>
+                 
+                </a>
+              </div>
+            </div>
+            <img src="https://www.mercatus.org/sites/default/files/5836449c-min.jpg" class="w-full" alt="chair" />
+          </div>
+          <div class="sm:w-1/2 sm:mt-0 mt-0 relative  xl:gap-x-1 gap-x-1">
+            <div>
+              <p class="p-6 text-xs font-medium leading-3 text-white absolute top-0 right-0">12 April 2021</p>
+              <div class="absolute bottom-0 left-0 p-6">
+                <h2 class="text-2xl font-bold capitalize text-white mb-3">Amazon Shoppers Are Ditching Designer Belts for
+                  This Best-Selling</h2>
+                <p class="text-base leading-4 text-white mt-2">Dive into minimalism</p>
+                <a href="javascript:void(0)"
+                  class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer text-white hover:text-gray-200 hover:underline">
+                  <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Choose plan
+                    <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </button>
+                 
+                </a>
+              </div>
+            </div>
+            <img src="https://cdni.rt.com/media/pics/2019.08/original/5d48703a95a5971a1d8b45b1.jpg" class="w-full"
+              alt="wall design" />
+          </div>
+        </div>
+        <div class="relative  xl:gap-x-1 gap-x-1">
+          <div>
+            <p class="md:p-10 p-6 text-xs font-medium leading-3 text-white absolute top-0 right-0">12 April 2021</p>
+            <div class="absolute bottom-0 left-0 md:p-10 p-6">
+              <h2 class="text-3xl font-bold capitalize text-white mb-3">Amazon Shoppers Are Ditching Designer Belts for
+                This Best-Selling</h2>
+              <p class="text-base leading-4 text-white mt-2">Dive into minimalism</p>
+              <a href="javascript:void(0)"
+                class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer text-white hover:text-gray-200 hover:underline">
+                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  Choose plan
+                  <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+              </button>
+                
+              </a>
+            </div>
+          </div>
+          <img src="https://nuernberger-blatt.de/wp-content/uploads/2020/08/spacecraft-693218_1920.jpg"
+            alt="sitting place" class="w-full mt-0 md:mt-0 hidden sm:block" />
+          <img class="w-full mt-4 sm:hidden"
+            src="https://avatars.mds.yandex.net/i?id=5d0434d26b73e9131ab89741c355804d-4470198-images-thumbs&n=13"
+            alt="sitting place" />
+        </div>
+      </div>
+      <div class="lg:w-1/2 xl:ml-1 lg:ml-1 lg:mt-0 md:mt-0 mt-1 lg:flex flex-col justify-between">
+        <div class="relative">
+          <div>
+            <p class="md:p-10 p-6 text-xs font-medium leading-3 text-white absolute top-0 right-0">12 April 2021</p>
+            <div class="absolute bottom-0 left-0 md:p-10 p-6">
+              <h2 class="text-3xl font-bold capitalize text-white mb-3">Amazon Shoppers Are Ditching Designer Belts for
+                This Best-Selling</h2>
+              <p class="text-base leading-4 text-white mt-2">Dive into minimalism</p>
+              <a href="javascript:void(0)"
+                class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer text-white hover:text-gray-200 hover:underline">
+                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                  Choose plan
+                  <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+              </button>
+               
+              </a>
+            </div>
+          </div>
+          <img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/7cd555100016231.5eff537762af9.jpg"
+            alt="sitting place" class="w-full sm:block hidden" />
+          <img class="w-full sm:hidden" src="https://i.ibb.co/dpXStJk/Rectangle-29.png" alt="sitting place" />
+        </div>
+        <div class="sm:flex items-center justify-between xl:gap-x-1 gap-x-0 md:mt-1 mt-0">
+          <div class="relative w-full">
+            <div>
+              <p class="p-6 text-xs font-medium leading-3 text-white absolute top-0 right-0">12 April 2021</p>
+              <div class="absolute bottom-0 left-0 p-6">
+                <h2 class="text-2xl font-bold capitalize text-white mb-3">Amazon Shoppers Are Ditching Designer Belts for
+                  This Best-Selling</h2>
+                <p class="text-base leading-4 text-white mt-2">Dive into minimalism</p>
+                <a href="javascript:void(0)"
+                  class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer text-white hover:text-gray-200 hover:underline">
+                  <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Choose plan
+                    <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </button>
+                 
+                </a>
+              </div>
+            </div>
+            <img
+              src="https://assets.simpleviewinc.com/simpleview/image/upload/c_fill,h_391,q_75,w_588/v1/clients/newyorkstate/mariograzianophotography_Instagram_11d7bfa9-c11f-4feb-a919-13d479b99fd2.jpg"
+              class="w-full" alt="chair" />
+          </div>
+          <div class="relative w-full sm:mt-0 mt-4">
+            <div>
+              <p class="p-6 text-xs font-medium leading-3 text-white absolute top-0 right-0">12 April 2021</p>
+              <div class="absolute bottom-0 left-0 p-6">
+                <h2 class="text-2xl font-bold capitalize text-white mb-3">Amazon Shoppers Are Ditching Designer Belts for
+                  This Best-Selling</h2>
+                <p class="text-base leading-4 text-white mt-2">Dive into minimalism</p>
+                <a href="javascript:void(0)"
+                  class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer text-white hover:text-gray-200 hover:underline">
+                  <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Choose plan
+                    <svg aria-hidden="true" class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </button>
+                 
+                </a>
+              </div>
+            </div>
+            <img src="https://laughingsquid.com/wp-content/uploads/2014/05/dragon_alone_on_stage.jpg" class="w-full"
+              alt="wall design" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="bg-dark-200 dark:bg-gray-900">
+  <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+    <div class="mr-auto place-self-center lg:col-span-7">
+      <h1
+        class="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+        Payments tool for software companies</h1>
+      <p class="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">From
+        checkout to global sales tax compliance, companies around the world use Flowbite to simplify their payment
+        stack.</p>
+      <a href="#"
+        class="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900">
+        Get started
+        <svg class="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </a>
+      <a href="#"
+        class="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800">
+        Speak to Sales
+      </a>
+    </div>
+    <div class="hidden lg:mt-0 lg:col-span-5 lg:flex">
+      <img src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/hero/phone-mockup.png" alt="mockup">
+    </div>
+  </div>
+</section>
+
+
+<script type="text/javascript">
+  let h = document.documentElement, b = document.body, st = "scrollTop", sh = "scrollHeight", progress = document.querySelector("#progress"), scroll; let scrollpos = window.scrollY; let header = document.getElementById("header"); let navcontent = document.getElementById("nav-content"); document.addEventListener("scroll", function () { scroll = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100; progress.style.setProperty("--scroll", scroll + "%"); scrollpos = window.scrollY; if (scrollpos > 10) { header.classList.add("bg-white"); header.classList.add("shadow-xl"); navcontent.classList.remove("bg-gray-50"); navcontent.classList.add("bg-white") } else { header.classList.remove("bg-white"); header.classList.remove("shadow-xl"); navcontent.classList.remove("bg-white"); navcontent.classList.add("bg-gray-50") } });
+</script>
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+
+</body>
+
+</html>
+
+{% endblock %}

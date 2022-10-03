@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- component -->
+<section class=" text-indigo-200 body-font p-0 bg-gray-900 ">
+  <div class="mx-auto container px-2 lg:px-5 py-0 md:inline ">
+    <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
+
+    <div class="flex ">
+      <div class="flex">
+        <div class="relative ">
+          <img class="w-auto lg:inline" src="{{ project.fon_image.url }}" alt="sofa" />
+          <div class="absolute sm:bottom-8 bottom-4 pr-10 sm:pr-0 left-4 sm:left-8 flex justify-start items-start">
+            <p class="text-3xl sm:text-4xl font-semibold leading-9 text-white">{{project.title}}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <Link to="coursedet">
+  <div class="mx-auto flex px-7  md:flex-row flex-col items-center jobcard">
+    <div
+      class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center">
+
+      <figure class="visible">
+
+        <div class="row-span-3 ">
+
+          <div class="pt-10 px-2 sm:px-6">
+            <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-100">{{project.title}}
+              <br class="hidden lg:inline-block" />
+            </h1>
+            <p class="text-indigo-200 text-base pb-6">{{project.title_description}}</p>
+            <p class="text-indigo-200 text-base pb-8">{{project.description}}</p>
+
+           
+            <div class=" row-span-3  ">
+              <div class=" row-span-3 flex items-center pb-22">
+                <div class=" row-span-3 h-12 w-12">
+                  <img src="{{ project.image.url }}" alt
+                    class="h-full w-full object-cover overflow-hidden rounded-full" />
+                </div>
+                <p class="text-indigo-200 font-bold ml-3">
+                  Jane Doe <br />
+                  <span class="text-indigo-200 text-base font-light">Apple Inc</span>
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </figure>
+
+    </div>
+    <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 sm:block hidden">
+      <img class="object-cover object-center rounded" alt="hero" src="{{ project.image.url }}" />
+    </div>
+  </div>
+  </Link>
+</section>
+
+{% endblock %}

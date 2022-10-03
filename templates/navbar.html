@@ -1,0 +1,185 @@
+<style>
+    html,
+    body {
+      height: 100%;
+      -webkit-font-smoothing: antialiased;
+      scrollbar-width: none;
+      -ms-overflow-style: none
+    }
+  
+    body::-webkit-scrollbar {
+      display: none
+    }
+  
+    ::-moz-selection {
+      color: rgb(0, 0, 0);
+      background: saddlebrown
+    }
+  
+    ::selection {
+      color: rgb(97, 248, 10);
+      background: #1029b9
+    }
+  
+  
+    .hello-msg {
+      font-size: 18px;
+      color: #fff;
+      margin-right: 20px;
+    }
+  
+  </style>
+  
+  <body class="bg-black-100">
+    <nav id="header" class="fixed w-full z-10 top-0 bg-black-200">
+      <div id="progress" class="h-1 z-20 top-0" style="
+                background: linear-gradient(
+                  to right,
+                  #1056b9 var(--scroll),
+                  transparent 0
+                );
+              ">
+      </div>
+      <div id="nav-content" class="w-full text-yellow-700  sm:bg-transparent">
+        <div x-data="{ open: false }"
+          class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+          <div class="p-4 flex flex-row items-center justify-between">
+            <a href="/"
+              class="text-2xl md:text-3xl font-bold tracking-normal text-blue-900 rounded-lg focus:outline-none focus:shadow-outline">UberNews<span
+                style="color: #FF7F50;">.</span></a>
+            <button class="md:hidden rounded-lg focus:outline-none focus:shadow-none" @click="open = !open">
+              <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+                <path x-show="!open" fill-rule="evenodd"
+                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
+                  clip-rule="evenodd"></path>
+                <path x-show="open" fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </button>
+          </div>
+          <div :class="{'flex': open, 'hidden': !open}"
+            class="font-sans flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
+            <a class="px-4 py-2 mt-2 text-blue-900  md:mt-0 md:ml-4 hover:underline" href="/category?q=business">Business</a>
+            <a class="px-4 py-2 mt-2 text-blue-900  md:mt-0 md:ml-4 ho0 cvx cvx   cver:underline"
+              href="/category?q=technology">Technology</a>
+            <a class="px-4 py-2 mt-2 text-black md:mt-0 md:ml-4 hover:underline"
+              href="https://github.com/ahampriyanshu/gonewz">About</a>
+            <div class="relative text-gray-600 bg-white flex items-center rounded-full">
+              <form action="/search" method="get">
+                <input name="q" id="search" type="text" placeholder="Search..." placeholder="Search"
+                  class="bg-white h-10 px-4 md:px-6 lg:px-8 rounded-full text-sm placeholder-green-600 focus:outline-none">
+                <button type="submit" class="absolute right-0 top-0 mt-3 mr-4">
+                  <svg class="h-4 w-4 fill-current text-green-600" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                    viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve"
+                    width="512px" height="512px">
+                    <path
+                      d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+                  </svg>
+                </button>
+              </form>
+  
+  
+  
+            </div>
+  
+          </div>
+          {% if not request.user.is_authenticated %}
+          <span><a class="hello-msg" href="{% url 'login' %}"><button type="button"
+                class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Login</button></a></span>
+          <span><a class="hello-msg" href="{% url 'register' %}"><button type="button"
+                class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Signin</button></a></span>
+          {% else %}
+          <!--<span class="hello-msg">Hello, {{request.user}}</span>-->
+          <span><a class="hello-msg" href="{% url 'logout' %}"><button type="button"
+                class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Logout
+              </button></a></span>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+  
+  
+    <!-- component -->
+  
+    <head>
+      <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+      <script>
+        var cont = 0;
+        function loopSlider() {
+          var xx = setInterval(function () {
+            switch (cont) {
+              case 0: {
+                $("#slider-1").fadeOut(400);
+                $("#slider-2").delay(400).fadeIn(400);
+                $("#sButton1").removeClass("bg-purple-800");
+                $("#sButton2").addClass("bg-purple-800");
+                cont = 1;
+  
+                break;
+              }
+              case 1:
+                {
+  
+                  $("#slider-2").fadeOut(400);
+                  $("#slider-1").delay(400).fadeIn(400);
+                  $("#sButton2").removeClass("bg-purple-800");
+                  $("#sButton1").addClass("bg-purple-800");
+  
+                  cont = 0;
+  
+                  break;
+                }
+  
+  
+            }
+          }, 8000);
+  
+        }
+  
+        function reinitLoop(time) {
+          clearInterval(xx);
+          setTimeout(loopSlider(), time);
+        }
+  
+  
+  
+        function sliderButton1() {
+  
+          $("#slider-2").fadeOut(400);
+          $("#slider-1").delay(400).fadeIn(400);
+          $("#sButton2").removeClass("bg-purple-800");
+          $("#sButton1").addClass("bg-purple-800");
+          reinitLoop(4000);
+          cont = 0
+  
+        }
+  
+        function sliderButton2() {
+          $("#slider-1").fadeOut(400);
+          $("#slider-2").delay(400).fadeIn(400);
+          $("#sButton1").removeClass("bg-purple-800");
+          $("#sButton2").addClass("bg-purple-800");
+          reinitLoop(4000);
+          cont = 1
+  
+        }
+  
+        $(window).ready(function () {
+          $("#slider-2").hide();
+          $("#sButton1").addClass("bg-purple-800");
+  
+  
+          loopSlider();
+  
+  
+  
+  
+  
+  
+        });
+  
+  
+      </script>
+    </head>
