@@ -14,6 +14,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from apps.forms import CreateUserForm
 
+
 def AppsListView(request):
     
     category = request.GET.get('category')
@@ -94,7 +95,7 @@ def registerPage(request):
           if form.is_valid():
             form.save()
             user = form.cleaned_data.get('username')
-
+           
             messages.success(request, 'Account was created for ' + user)
             return redirect('login')
 
@@ -128,10 +129,9 @@ def logoutUser(request):
     logout(request)
     return redirect('landing_page')
 
+
 def LandingPage(request):
+    context = { }
 
-    context = {
-
-    }
-    return render(request, 'apps/landing_page.html', context)
+    return render(request, 'apps/landing_page.html',context)
 

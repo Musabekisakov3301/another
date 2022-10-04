@@ -126,5 +126,6 @@ STATIC_DIR = os.path.join(BASE_DIR,'static')
 #CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 #CRISPY_TEMPLATE_PACK = "tailwind"
 
-LOGIN_REDIRECT_URL = 'apps_list'
+
 LOGOUT_REDIRECT_URL = 'landing_page'
+LOGIN_REDIRECT_URL = 'apps_list'
