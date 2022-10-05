@@ -135,3 +135,11 @@ def LandingPage(request):
 
     return render(request, 'apps/landing_page.html',context)
 
+def OurTeamPage(request):
+    return render(request,'apps/team.html')
+
+def TechnologyPage(request):
+    return render(request,'apps/technology.html')
+
+def CoursePage(request):
+    return render(request,'apps/course.html')

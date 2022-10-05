@@ -74,12 +74,12 @@
           </div>
           <div :class="{'flex': open, 'hidden': !open}"
             class="font-sans flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
-            <a class="px-4 py-2 mt-2 text-white  md:mt-0 md:ml-4 hover:underline" href="/category?q=business">Business</a>
+            <a class="px-4 py-2 mt-2 text-white  md:mt-0 md:ml-4 hover:underline" href="{% url 'course' %}">Business</a>
             <a class="px-4 py-2 mt-2 text-white  md:mt-0 md:ml-4 ho0 cvx cvx   cver:underline"
-              href="/category?q=technology">Technology</a>
+              href="{% url 'technology' %}">Technology</a>
            
             <a class="px-4 py-2 mt-2 text-white md:mt-0 md:ml-4 hover:underline"
-              href="https://github.com/ahampriyanshu/gonewz">About</a>
+              href="{% url 'team' %}">About</a>
             <div class="relative text-gray-600 bg-white flex items-center rounded-full">
               <form action="/search" method="get">
                 <input name="q" id="search" type="text" placeholder="Search..." placeholder="Search"
