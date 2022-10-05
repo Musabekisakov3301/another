@@ -143,3 +143,6 @@ def TechnologyPage(request):
 
 def CoursePage(request):
     return render(request,'apps/course.html')
+
+def Page_404(request,exception): 
+    return render(request,'apps/page_404.html')

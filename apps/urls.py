@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.views import AppsListView,FirstAppsDetailView,AppsDetailView,FourthAppsDetailView, OurTeamPage,registerPage,loginPage,logoutUser,LandingPage,OurTeamPage,TechnologyPage,CoursePage
+from apps.views import AppsListView,FirstAppsDetailView,AppsDetailView,FourthAppsDetailView,OurTeamPage, Page_404,registerPage,loginPage,logoutUser,LandingPage,OurTeamPage,TechnologyPage,CoursePage,Page_404
 
 
 urlpatterns = [
@@ -15,5 +15,6 @@ urlpatterns = [
     path('team/',OurTeamPage, name='team'),
     path('technology/',TechnologyPage, name='technology'),
     path('course/',CoursePage, name='course'),
+    path('page_404/',Page_404, name='page_404'),
    
 ]
